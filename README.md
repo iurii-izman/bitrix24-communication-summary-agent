@@ -15,6 +15,14 @@
 
 Bitrix24 Communication Summary Agent is a portfolio-ready MVP for processing calls, emails, chats, and manager notes into structured CRM actions: summary, agreements, risks, missing info, next steps, follow-up tasks, draft replies, and Bitrix24 timeline comments with human-in-the-loop approval.
 
+## Public Review Path
+
+- [Release note](docs/release_note.md)
+- [Git-ready runbook](docs/git_ready_runbook.md)
+- [Bitrix cleanup runbook](docs/bitrix_cleanup_runbook.md)
+- [Release checklist](docs/checklists/release_checklist.md)
+- [Screenshots plan](docs/screenshots_plan.md)
+
 ## Highlights
 
 - FastAPI backend with protected intake API and masked admin UI.
