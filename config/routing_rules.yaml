@@ -1,0 +1,7 @@
+rules:
+  review_confidence_below_threshold: "review_needed"
+  high_risk: "review_needed"
+  missing_budget_or_decision_maker: "review_needed"
+  too_short: "drop"
+  unknown_channel: "review_needed"
+  default: "proceed"

@@ -1,0 +1,38 @@
+# secrets
+.env
+.env.*
+!.env.example
+
+# git
+.git
+.gitignore
+
+# python caches
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.coverage
+htmlcov/
+
+# virtualenv
+.venv/
+venv/
+
+# packaging artifacts
+build/
+dist/
+*.egg-info/
+
+# local data
+runtime_artifacts/
+*.sqlite
+*.sqlite3
+*.db
+
+# IDE / OS
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db

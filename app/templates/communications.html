@@ -1,0 +1,47 @@
+{% extends "base.html" %}
+
+{% block title %}Communications | Bitrix24 Communication Summary Agent{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div class="panel-header">
+    <div>
+      <h2 class="panel-title">All Communications</h2>
+      <div class="panel-subtitle">Masked request history across all channels with direct access to detail pages.</div>
+    </div>
+  </div>
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Created</th>
+          <th style="width: 30%;">Request</th>
+          <th style="width: 12%;">Channel</th>
+          <th>Source</th>
+          <th>Client</th>
+          <th style="width: 14%;">Status</th>
+          <th style="width: 10%;">Priority</th>
+          <th style="width: 10%;">Risk</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}
+        <tr>
+          <td>{{ record.created_at }}</td>
+          <td><a class="request-link mono" href="/admin/communications/{{ record.request_id }}">{{ record.request_id }}</a></td>
+          <td>{{ record.channel|channel_label }}</td>
+          <td>{{ record.source }}</td>
+          <td>
+            <div>{{ record.client_name or "Unknown client" }}</div>
+            <div class="muted">{{ record.client_contact or "No contact provided" }}</div>
+          </td>
+          <td><span class="{{ record.status|status_badge_class }}">{{ record.status }}</span></td>
+          <td><span class="{{ record.priority|priority_badge_class }}">{{ record.priority }}</span></td>
+          <td><span class="{{ record.risk_level|risk_badge_class }}">{{ record.risk_level }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</section>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+
+{% block title %}Settings | Bitrix24 Communication Summary Agent{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div class="panel-header">
+    <div>
+      <h2 class="panel-title">Settings Snapshot</h2>
+      <div class="panel-subtitle">Public-safe runtime values for validation, demos, and screenshots.</div>
+    </div>
+  </div>
+  <div class="kv-grid">
+    {% for key, value in snapshot.items() %}
+    <div class="kv-item">
+      <span class="key">{{ key.replace('_', ' ') }}</span>
+      <div class="val mono compact">{{ value }}</div>
+    </div>
+    {% endfor %}
+  </div>
+</section>
+{% endblock %}

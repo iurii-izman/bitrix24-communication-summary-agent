@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+.pytest_cache/
+.ruff_cache/
+*.pyc
+.env
+demo.sqlite3
+*.sqlite3
+runtime_artifacts/
+bitrix24_communication_summary_agent.egg-info/
+.coverage
+htmlcov/

@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+
+{% block title %}Dashboard | Bitrix24 Communication Summary Agent{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div class="panel-header">
+    <div>
+      <h2 class="panel-title">Operational Snapshot</h2>
+      <div class="panel-subtitle">Queue state, review pressure, and risk concentration at a glance.</div>
+    </div>
+  </div>
+  <div class="stats-grid">
+    <div class="stat-card accent-teal">
+      <span class="label">Total Communications</span>
+      <div class="value">{{ stats.total }}</div>
+    </div>
+    <div class="stat-card accent-orange">
+      <span class="label">Review Needed</span>
+      <div class="value">{{ stats.review_needed }}</div>
+    </div>
+    <div class="stat-card accent-green">
+      <span class="label">Completed</span>
+      <div class="value">{{ stats.completed }}</div>
+    </div>
+    <div class="stat-card accent-red">
+      <span class="label">Failed / Retryable</span>
+      <div class="value">{{ stats.failed }}</div>
+    </div>
+  </div>
+</section>
+
+<section class="grid two" style="margin-top: 18px;">
+  <div class="panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Status Distribution</h2>
+        <div class="panel-subtitle">What is flowing cleanly and what still needs a human decision.</div>
+      </div>
+    </div>
+    <div class="chips">
+      {% for status, count in stats.by_status.items() %}
+      <div class="chip">
+        <span class="{{ status|status_badge_class }}">{{ status }}</span>
+        <strong>{{ count }}</strong>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="panel-header" style="margin-top: 18px;">
+      <div>
+        <h3 class="panel-title" style="font-size: 18px;">Channel Mix</h3>
+        <div class="panel-subtitle">The input sources currently hitting the queue.</div>
+      </div>
+    </div>
+    <div class="chips">
+      {% for channel, count in stats.by_channel.items() %}
+      <div class="chip">{{ channel|channel_label }} <strong>{{ count }}</strong></div>
+      {% endfor %}
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Risk & Priority</h2>
+        <div class="panel-subtitle">Useful for deciding where manual attention should go first.</div>
+      </div>
+    </div>
+    <div class="chips" style="margin-bottom: 16px;">
+      {% for priority, count in stats.by_priority.items() %}
+      <div class="chip">
+        <span class="{{ priority|priority_badge_class }}">{{ priority }}</span>
+        <strong>{{ count }}</strong>
+      </div>
+      {% endfor %}
+    </div>
+    <div class="kv-grid">
+      <div class="kv-item">
+        <span class="key">High Risk Cases</span>
+        <div class="val">{{ stats.high_risk }}</div>
+      </div>
+      <div class="kv-item">
+        <span class="key">Write Guard</span>
+        <div class="val">{{ write_guard }}</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="grid two" style="margin-top: 18px;">
+  <div class="panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Recent Records</h2>
+        <div class="panel-subtitle">Newest communications with masked client context and routing outcomes.</div>
+      </div>
+    </div>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Created</th>
+            <th style="width: 32%;">Request</th>
+            <th>Channel</th>
+            <th style="width: 16%;">Status</th>
+            <th style="width: 12%;">Priority</th>
+            <th style="width: 12%;">Risk</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for record in records %}
+          <tr>
+            <td>{{ record.created_at }}</td>
+            <td>
+              <a class="request-link mono" href="/admin/communications/{{ record.request_id }}">{{ record.request_id }}</a>
+            </td>
+            <td>{{ record.channel|channel_label }}</td>
+            <td><span class="{{ record.status|status_badge_class }}">{{ record.status }}</span></td>
+            <td><span class="{{ record.priority|priority_badge_class }}">{{ record.priority }}</span></td>
+            <td><span class="{{ record.risk_level|risk_badge_class }}">{{ record.risk_level }}</span></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+  <div class="panel">
+    <div class="panel-header">
+      <div>
+        <h2 class="panel-title">Settings Snapshot</h2>
+        <div class="panel-subtitle">Masked runtime configuration intended for screenshots and operational review.</div>
+      </div>
+    </div>
+    <div class="kv-grid">
+      {% for key, value in settings_snapshot.items() %}
+      <div class="kv-item">
+        <span class="key">{{ key.replace('_', ' ') }}</span>
+        <div class="val mono compact">{{ value }}</div>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+{% endblock %}

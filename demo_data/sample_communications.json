@@ -1,0 +1,57 @@
+[
+  {
+    "idempotency_key": "call-transcript-high-value",
+    "source": "manual",
+    "channel": "call_transcript",
+    "external_deal_id": "123",
+    "client_name": "Demo Client Alpha",
+    "client_contact": "+37300001111",
+    "communication_text": "Client wants Bitrix24 implementation with 1C integration, asks for commercial proposal, budget is not clear, and wants callback Friday.",
+    "current_stage": "qualification",
+    "manager_notes": "Need quick follow-up."
+  },
+  {
+    "idempotency_key": "email-price-timeline",
+    "source": "email",
+    "channel": "email",
+    "external_deal_id": "124",
+    "client_name": "Demo Client Beta",
+    "client_contact": "beta@example.test",
+    "communication_text": "Please share your price and implementation timeline for Bitrix24 CRM. The decision maker is not confirmed yet.",
+    "current_stage": "discovery",
+    "manager_notes": "Clarify buyer role."
+  },
+  {
+    "idempotency_key": "manager-note-followup",
+    "source": "manager",
+    "channel": "manager_note",
+    "external_deal_id": "125",
+    "client_name": "Demo Client Gamma",
+    "client_contact": "+37300002222",
+    "communication_text": "Client wants CRM audit, current process is in Excel, asked to call Friday.",
+    "current_stage": "qualification",
+    "manager_notes": "Possible fast audit scope."
+  },
+  {
+    "idempotency_key": "vague-low-quality",
+    "source": "chat",
+    "channel": "chat",
+    "external_deal_id": "126",
+    "client_name": "Demo Client Delta",
+    "client_contact": "delta@example.test",
+    "communication_text": "call me later",
+    "current_stage": "new",
+    "manager_notes": "Very low context."
+  },
+  {
+    "idempotency_key": "negative-risk-case",
+    "source": "crm",
+    "channel": "crm_comment",
+    "external_deal_id": "127",
+    "client_name": "Demo Client Epsilon",
+    "client_contact": "+37300003333",
+    "communication_text": "Client is unhappy about the delay, asks who is responsible, and needs an urgent answer today.",
+    "current_stage": "delivery",
+    "manager_notes": "Escalation risk."
+  }
+]

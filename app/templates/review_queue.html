@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+
+{% block title %}Review Queue | Bitrix24 Communication Summary Agent{% endblock %}
+
+{% block content %}
+<section class="panel">
+  <div class="panel-header">
+    <div>
+      <h2 class="panel-title">Review Queue</h2>
+      <div class="panel-subtitle">Cases blocked by confidence, missing information, or routing safety rules.</div>
+    </div>
+  </div>
+  {% if records %}
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>Created</th>
+          <th>Request</th>
+          <th>Channel</th>
+          <th>Client</th>
+          <th>Status</th>
+          <th>Priority</th>
+          <th>Risk</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for record in records %}
+        <tr>
+          <td>{{ record.created_at }}</td>
+          <td><a class="request-link mono" href="/admin/communications/{{ record.request_id }}">{{ record.request_id }}</a></td>
+          <td>{{ record.channel|channel_label }}</td>
+          <td>{{ record.client_name or "Unknown client" }}</td>
+          <td><span class="{{ record.status|status_badge_class }}">{{ record.status }}</span></td>
+          <td><span class="{{ record.priority|priority_badge_class }}">{{ record.priority }}</span></td>
+          <td><span class="{{ record.risk_level|risk_badge_class }}">{{ record.risk_level }}</span></td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  {% else %}
+  <div class="empty-state">No records currently require review.</div>
+  {% endif %}
+</section>
+{% endblock %}

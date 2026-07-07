@@ -1,0 +1,188 @@
+{% extends "base.html" %}
+
+{% block title %}Communication Detail | Bitrix24 Communication Summary Agent{% endblock %}
+
+{% block content %}
+<section class="detail-grid">
+  <div class="stack">
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Communication Detail</h2>
+          <div class="panel-subtitle mono">{{ detail.request_id }}</div>
+        </div>
+        <div class="actions">
+          <a class="nav-pill" href="/admin/communications">Back to list</a>
+        </div>
+      </div>
+      <div class="kv-grid">
+        <div class="kv-item"><span class="key">Status</span><div class="val"><span class="{{ detail.status|status_badge_class }}">{{ detail.status }}</span></div></div>
+        <div class="kv-item"><span class="key">Channel</span><div class="val">{{ detail.channel|channel_label }}</div></div>
+        <div class="kv-item"><span class="key">Priority</span><div class="val"><span class="{{ detail.priority|priority_badge_class }}">{{ detail.priority }}</span></div></div>
+        <div class="kv-item"><span class="key">Risk Level</span><div class="val"><span class="{{ detail.risk_level|risk_badge_class }}">{{ detail.risk_level }}</span></div></div>
+        <div class="kv-item"><span class="key">Client</span><div class="val">{{ detail.client_name or "Unknown client" }}</div></div>
+        <div class="kv-item"><span class="key">Contact</span><div class="val mono">{{ detail.client_contact or "No contact provided" }}</div></div>
+        <div class="kv-item"><span class="key">Source</span><div class="val">{{ detail.source }}</div></div>
+        <div class="kv-item"><span class="key">Current Stage</span><div class="val">{{ detail.current_stage or "Not specified" }}</div></div>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Masked Communication</h2>
+          <div class="panel-subtitle">The stored text after masking and safe normalization.</div>
+        </div>
+      </div>
+      <div class="text-block">{{ detail.communication_text }}</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Manager Notes</h2>
+          <div class="panel-subtitle">Optional context supplied during intake.</div>
+        </div>
+      </div>
+      <div class="text-block">{{ detail.manager_notes or "No manager notes were provided." }}</div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Processing Timeline</h2>
+          <div class="panel-subtitle">Ordered pipeline events with sanitized metadata.</div>
+        </div>
+      </div>
+      <div class="timeline">
+        {% for log in detail.logs %}
+        <div class="timeline-item">
+          <div class="timeline-time">{{ log.created_at }}</div>
+          <div>
+            <div style="margin-bottom: 8px;">
+              <span class="{{ log.to_status|status_badge_class }}">{{ log.event_type }}</span>
+            </div>
+            <div>{{ log.message }}</div>
+            {% if log.metadata %}
+            <pre style="margin-top: 10px;">{{ log.metadata | pretty_json }}</pre>
+            {% endif %}
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+
+  <div class="stack">
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">AI Summary</h2>
+          <div class="panel-subtitle">Structured outcome used for routing and Bitrix24 sync.</div>
+        </div>
+      </div>
+      {% if detail.summary_result %}
+      <div class="summary-grid" style="margin-bottom: 12px;">
+        <div class="summary-chip">
+          <span class="label">Confidence</span>
+          <strong>{{ detail.summary_result.confidence }}</strong>
+        </div>
+        <div class="summary-chip">
+          <span class="label">Model</span>
+          <strong>{{ detail.summary_result.model_used }}</strong>
+        </div>
+        <div class="summary-chip">
+          <span class="label">Human Approval Required</span>
+          <strong>{{ "yes" if detail.summary_result.human_approval_required else "no" }}</strong>
+        </div>
+        <div class="summary-chip">
+          <span class="label">Sentiment</span>
+          <strong>{{ detail.summary_result.sentiment }}</strong>
+        </div>
+      </div>
+      <div class="list-card">
+        <h4>Summary</h4>
+        <div class="muted">{{ detail.summary_result.summary }}</div>
+      </div>
+      <div class="list-card">
+        <h4>Client Intent</h4>
+        <div>{{ detail.summary_result.client_intent }}</div>
+      </div>
+      <div class="list-card">
+        <h4>Agreements</h4>
+        <div>{{ detail.summary_result.agreements|join(", ") or "None" }}</div>
+      </div>
+      <div class="list-card">
+        <h4>Risks</h4>
+        <div>{{ detail.summary_result.risks|join(", ") or "None" }}</div>
+      </div>
+      <div class="list-card">
+        <h4>Missing Information</h4>
+        <div>{{ detail.summary_result.missing_info|join(", ") or "None" }}</div>
+      </div>
+      <div class="list-card">
+        <h4>Next Steps</h4>
+        {% for step in detail.summary_result.next_steps %}
+        <div style="margin-bottom: 10px;">
+          <strong>{{ step.title }}</strong><br>
+          <span class="muted">{{ step.owner }}{% if step.due_date %} · {{ step.due_date }}{% endif %}</span><br>
+          <span>{{ step.rationale }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      <div class="list-card">
+        <h4>Follow-up</h4>
+        <div>{{ detail.summary_result.follow_up.reason }}{% if detail.summary_result.follow_up.date %} · {{ detail.summary_result.follow_up.date }}{% endif %}</div>
+      </div>
+      <div class="list-card">
+        <h4>Draft Reply</h4>
+        <div>{{ detail.summary_result.draft_reply }}</div>
+      </div>
+      <div class="list-card">
+        <h4>Timeline Comment Preview</h4>
+        <pre>{{ detail.summary_result.timeline_comment }}</pre>
+      </div>
+      {% if detail.summary_result.recommended_tasks %}
+      <div class="list-card">
+        <h4>Recommended Tasks</h4>
+        {% for task in detail.summary_result.recommended_tasks %}
+        <div style="margin-bottom: 10px;">
+          <strong>{{ task.title }}</strong><br>
+          <span class="muted">{{ task.priority }}{% if task.due_date %} · {{ task.due_date }}{% endif %}</span><br>
+          <span>{{ task.description }}</span>
+        </div>
+        {% endfor %}
+      </div>
+      {% endif %}
+      {% else %}
+      <div class="empty-state">No summary result is stored for this communication yet.</div>
+      {% endif %}
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Admin Actions</h2>
+          <div class="panel-subtitle">Use only for controlled review and reprocessing.</div>
+        </div>
+      </div>
+      <div class="actions">
+        <form method="post" action="/admin/communications/{{ detail.request_id }}/approve"><button type="submit">Approve</button></form>
+        <form method="post" action="/admin/communications/{{ detail.request_id }}/retry"><button class="secondary" type="submit">Retry</button></form>
+        <form method="post" action="/admin/communications/{{ detail.request_id }}/reprocess-ai"><button class="warn" type="submit">Reprocess AI</button></form>
+        <form method="post" action="/admin/communications/{{ detail.request_id }}/drop"><button class="danger" type="submit">Drop</button></form>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-header">
+        <div>
+          <h2 class="panel-title">Masked Payload Snapshot</h2>
+          <div class="panel-subtitle">Exact persisted intake payload after masking.</div>
+        </div>
+      </div>
+      <pre>{{ detail.masked_payload | pretty_json }}</pre>
+    </div>
+  </div>
+</section>
+{% endblock %}
