@@ -16,7 +16,7 @@ Turn the local repository into a strong public GitHub repository with current co
 - `.github/dependabot.yml`
 - `.github/pull_request_template.md`
 - `.github/ISSUE_TEMPLATE/`
-- `.github/CODEOWNERS.example`
+- `.github/CODEOWNERS`
 
 ## Required Manual GitHub Settings
 
@@ -40,11 +40,11 @@ These cannot be fully applied from the local filesystem alone.
 - block force pushes
 - block branch deletion
 
-Only enable code-owner review after replacing `.github/CODEOWNERS.example` with a real `.github/CODEOWNERS` file that references actual GitHub users or teams with write access.
+Code-owner review is ready to enable because `.github/CODEOWNERS` now references the real repository owner.
 
 ## Badge Upgrade After Remote Exists
 
-The README uses safe static badges right now so it renders correctly before the public remote exists.
+The README now uses a live GitHub Actions badge plus GitHub metadata badges.
 
 After the repository is pushed, replace the static CI badge with a live GitHub Actions badge:
 
@@ -64,10 +64,8 @@ Use these only after the repository exists publicly; otherwise the README will s
 
 ## CODEOWNERS Activation
 
-1. Copy `.github/CODEOWNERS.example` to `.github/CODEOWNERS`.
-2. Replace `@your-github-handle` with the real owner or team.
-3. Commit the file to `main`.
-4. Then enable code-owner review in branch protection if desired.
+1. Update `.github/CODEOWNERS` if ownership expands beyond the main maintainer.
+2. Then enable code-owner review in branch protection if desired.
 
 ## Suggested First Push
 

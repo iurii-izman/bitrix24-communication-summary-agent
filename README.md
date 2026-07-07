@@ -1,9 +1,11 @@
 # Bitrix24 Communication Summary Agent
 
+![CI](https://github.com/iurii-izman/bitrix24-communication-summary-agent/actions/workflows/ci.yml/badge.svg)
 ![Python](https://img.shields.io/badge/python-3.12-3776AB.svg?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi&logoColor=white)
 ![License](https://img.shields.io/badge/license-MIT-0F766E.svg)
-![CI](https://img.shields.io/badge/CI-pytest%20%2B%20ruff-111827.svg?logo=githubactions&logoColor=white)
+![Last Commit](https://img.shields.io/github/last-commit/iurii-izman/bitrix24-communication-summary-agent)
+![Issues](https://img.shields.io/github/issues/iurii-izman/bitrix24-communication-summary-agent)
 ![Docs](https://img.shields.io/badge/docs-architecture%20%2B%20runbooks-2563EB.svg)
 ![Status](https://img.shields.io/badge/status-demo%2Fproduct%20prototype-1F6FEB.svg)
 ![Bitrix24](https://img.shields.io/badge/Bitrix24-mock%2Freal--ready-0EA5E9.svg)
