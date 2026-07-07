@@ -2,12 +2,24 @@
 
 ![Python](https://img.shields.io/badge/python-3.12-3776AB.svg?logo=python&logoColor=white)
 ![FastAPI](https://img.shields.io/badge/FastAPI-0.115+-009688.svg?logo=fastapi&logoColor=white)
+![License](https://img.shields.io/badge/license-MIT-0F766E.svg)
+![CI](https://img.shields.io/badge/CI-pytest%20%2B%20ruff-111827.svg?logo=githubactions&logoColor=white)
+![Docs](https://img.shields.io/badge/docs-architecture%20%2B%20runbooks-2563EB.svg)
 ![Status](https://img.shields.io/badge/status-demo%2Fproduct%20prototype-1F6FEB.svg)
 ![Bitrix24](https://img.shields.io/badge/Bitrix24-mock%2Freal--ready-0EA5E9.svg)
+![Community](https://img.shields.io/badge/community-templates%20enabled-F59E0B.svg)
 
 > Demo/product prototype. Not a commercial deployment.
 
 Bitrix24 Communication Summary Agent is a portfolio-ready MVP for processing calls, emails, chats, and manager notes into structured CRM actions: summary, agreements, risks, missing info, next steps, follow-up tasks, draft replies, and Bitrix24 timeline comments with human-in-the-loop approval.
+
+## Highlights
+
+- FastAPI backend with protected intake API and masked admin UI.
+- Deterministic AI-summary flow with review routing and operator override path.
+- Mock-first runtime plus validated real Bitrix24 test-portal workflow.
+- Cleanup and audit scripts for safe live experimentation on test artifacts.
+- Public-repo scaffolding: CI, security policy, support guidance, issue forms, and release docs.
 
 ## Why this repo is worth reviewing
 
@@ -15,6 +27,16 @@ Bitrix24 Communication Summary Agent is a portfolio-ready MVP for processing cal
 - Demo-safe local runtime with SQLite, mock AI, and mock Bitrix24 by default.
 - Human-in-the-loop workflow with review queue and admin actions.
 - Tests, linting, docs, Docker, and public-safe masking included.
+
+## Repository Health
+
+- [License](./LICENSE)
+- [Code of Conduct](./CODE_OF_CONDUCT.md)
+- [Contributing](./CONTRIBUTING.md)
+- [Security Policy](./SECURITY.md)
+- [Support](./SUPPORT.md)
+- [CI Workflow](./.github/workflows/ci.yml)
+- [Dependabot](./.github/dependabot.yml)
 
 ## Architecture Flow
 
@@ -130,6 +152,7 @@ Additional reference:
 - [Screenshot capture checklist](./docs/screenshots_capture_checklist.md)
 - [Release note](./docs/release_note.md)
 - [Release checklist](./docs/checklists/release_checklist.md)
+- [GitHub repo launch guide](./docs/github_repo_launch.md)
 
 ## Production Upgrade Path
 

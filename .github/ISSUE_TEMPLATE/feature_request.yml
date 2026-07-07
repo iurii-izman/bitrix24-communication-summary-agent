@@ -1,0 +1,42 @@
+name: Feature Request
+description: Propose a scoped enhancement to the product workflow, integration boundary, or developer experience.
+title: "[feature] "
+labels: ["enhancement"]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem or opportunity
+      description: What gap are you trying to close?
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed solution
+      description: Describe the desired behavior.
+    validations:
+      required: true
+  - type: textarea
+    id: scope
+    attributes:
+      label: Scope boundaries
+      description: Clarify what should stay out of scope.
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options:
+        - intake API
+        - admin UI
+        - worker pipeline
+        - Bitrix24 integration
+        - docs or repo
+        - validation tooling
+    validations:
+      required: true
+  - type: textarea
+    id: validation
+    attributes:
+      label: How should this be validated?
+      description: Tests, demo flow, or portal validation expectations.

@@ -1,0 +1,63 @@
+name: Bug Report
+description: Report a reproducible defect in the app, scripts, or documentation.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use synthetic data only. Do not paste secrets, webhook URLs, or real customer information.
+  - type: textarea
+    id: summary
+    attributes:
+      label: What happened?
+      description: Describe the defect and why it matters.
+      placeholder: The review queue page fails to load after approving a request.
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Reproduction steps
+      description: List the exact steps to reproduce.
+      placeholder: |
+        1. Start the app
+        2. Seed demo data
+        3. Open /admin/review
+    validations:
+      required: true
+  - type: dropdown
+    id: mode
+    attributes:
+      label: Runtime mode
+      options:
+        - demo
+        - real dry-run
+        - real write-enabled validation
+        - unknown
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Logs or screenshots
+      description: Redact credentials, portal URLs, and PII.
+  - type: checkboxes
+    id: safety
+    attributes:
+      label: Safety checks
+      options:
+        - label: I removed secrets, webhook tokens, and real customer data.
+          required: true

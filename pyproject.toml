@@ -8,6 +8,18 @@ version = "0.1.0"
 description = "Bitrix24 Communication Summary Agent demo/product prototype"
 readme = "README.md"
 requires-python = ">=3.12"
+license = "MIT"
+keywords = ["bitrix24", "fastapi", "crm", "ai", "automation", "integration"]
+classifiers = [
+    "Development Status :: 4 - Beta",
+    "Framework :: FastAPI",
+    "Intended Audience :: Developers",
+    "License :: OSI Approved :: MIT License",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.12",
+    "Topic :: Office/Business",
+    "Topic :: Software Development :: Libraries :: Application Frameworks",
+]
 dependencies = [
     "fastapi>=0.115,<1.0",
     "httpx>=0.27,<1.0",
